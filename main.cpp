@@ -1,5 +1,8 @@
 #include "raylib.h"
 #include "raymath.h"
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -26,5 +29,9 @@ int main(){InitWindow(1100,650,"Food Truck Fantasy - Prototype");SetTargetFPS(60
  if(button({710,350,345,48},"Sweet Roll (orange+yellow) $16",Color{229,151,67,255})){if(inv[1]>0&&inv[2]>0){inv[1]--;inv[2]--;money+=16;served++;customer++;notice="Sweet roll sold! +$16";}else notice="Missing ingredients! Visit a world.";noticeTime=3;}
  if(button({710,425,345,48},"GO COLLECT INGREDIENTS",Color{121,153,206,255}))screen=SELECT;
  for(int i=0;i<4;i++){int xx=130+i*130;DrawCircle(xx,550,25,girls[i].hair);DrawCircle(xx,558,17,Color{255,223,195,255});DrawRectangleRounded({(float)xx-22,577,44,45},.3f,8,girls[i].outfit);DrawText(girls[i].name,xx-24,627,17,DARKPURPLE);}if(button({745,510,285,46},"SWITCH GIRL",Color{147,108,184,255}))girl=(girl+1)%4;DrawText(TextFormat("Selected: %s",girls[girl].name),760,568,23,DARKPURPLE);}
- if(noticeTime>0){DrawRectangleRounded({200,592,700,42},.3f,8,Fade(DARKPURPLE,.86f));DrawText(notice.c_str(),225,601,20,WHITE);}EndDrawing();}
+ if(noticeTime>0){DrawRectangleRounded({200,592,700,42},.3f,8,Fade(DARKPURPLE,.86f));DrawText(notice.c_str(),225,601,20,WHITE);}EndDrawing();
+#ifdef __EMSCRIPTEN__
+ emscripten_sleep(16);
+#endif
+ }
  CloseWindow();return 0;}
