@@ -15,7 +15,7 @@ target_link_libraries(FoodTruckFantasy PRIVATE raylib)
 if(EMSCRIPTEN)
   set_target_properties(FoodTruckFantasy PROPERTIES SUFFIX ".html")
   target_link_options(FoodTruckFantasy PRIVATE
-    "-sUSE_GLFW=3" "-sALLOW_MEMORY_GROWTH=1" "-sASSERTIONS=1"
+    "-sUSE_GLFW=3" "-sALLOW_MEMORY_GROWTH=1" "-sASSERTIONS=1" "-sASYNCIFY=1"
     "-sEXPORTED_RUNTIME_METHODS=['ccall','cwrap']"
     "--shell-file=${CMAKE_CURRENT_SOURCE_DIR}/web/shell.html")
 endif()
